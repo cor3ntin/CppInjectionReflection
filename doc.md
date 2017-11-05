@@ -95,44 +95,16 @@ For example, `X x = expr;`  expr can assumed to be return something of type X, u
 I suggest using concept to declare `s-macro` parameters
 
 
-### Wandering off : Partial Template Specialization for concept
-
-
-The Shorthand notation ( which I'm a big proponent of ), allows to write
-
-`void f(const MyConcept & bar)`  instead of
-
-```
-template<MyConcept T>
-void algo(T const&);
-``` 
-
-
-For the purpose of what will follow, I suggest that this syntax should be allowed to be partially specialized, such that
-```
-void f(const MyConcept<bool> & bar)
-```
-
-becomes a shorthand for
-
-```
-template<typename T>  requires MyConcept<T, bool>
-void algo(T const&);
-
-```
-
-This has yet to be explored in much more details
-
-
-### Ok, back to S-Macros
-
-
-
 The concept and class to introduced are
 
  * `std::meta::expression` : A reflection on an expression that can be constrained on the type of its value
  * `std::meta::type        : A reflection on a type
  * `std::meta::identifier  : An identifier that may not refer to a name
+
+`std::meta expression` is a concept with an optional template parameter to constrain it on the type.
+
+S-Macro definition use the same syntax than the "abbreviated function template" form specified by n4553 ( 8.3.5.16 ).
+
 
 
 A `s-macro` could also take user defined concepts as parameters. A long as the actual concrete parameter is a reflection or literal type. 
